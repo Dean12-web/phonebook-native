@@ -14,7 +14,9 @@ export default function PhoneItem({ phonebook }: { phonebook: any }) {
     return (
         <View style={styles.card}>
             <View style={styles.image}>
-                <Image style={styles.imageCover} source={require('../../public/images/profile.png')} />
+                <TouchableOpacity>
+                    <Image style={styles.imageCover} source={require('../../public/images/profile.png')} />
+                </TouchableOpacity>
             </View>
             <View style={styles.info}>
                 {isEdit ?

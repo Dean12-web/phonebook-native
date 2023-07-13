@@ -18,6 +18,12 @@ export default function phonebooks(state = initialState, action) {
                 ...state,
                 totalPage: action.pages
             };
+        case 'RESET_PARAMS':
+            return {
+                ...state,
+                page: 1,
+                totalPage: 0
+            };
         default:
             return state
     }

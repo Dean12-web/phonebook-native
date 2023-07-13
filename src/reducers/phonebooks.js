@@ -5,7 +5,7 @@ export default function phonebooks(state = [], action) {
             const newPhonebooks = action.phonebooks.map(item => ({ ...item, sent: true }));
             const existingIds = state.map(item => item.id);
             const filteredPhonebooks = newPhonebooks.filter(item => !existingIds.includes(item.id));
-            return [...state, ...action.phonebooks.map(item => ({ ...item, sent: true }))];
+            return [...state, ...filteredPhonebooks];
         case 'LOAD_PHONEBOOK_FAILURE':
         case 'ADD_PHONEBOOK_DRAW':
             return [{ ...action.phonebook, sent: true }, ...state]
@@ -31,6 +31,8 @@ export default function phonebooks(state = [], action) {
                 }
                 return item
             })
+        case 'RESET_PARAMS':
+            return [];
         case 'REMOVE_PHONEBOOK_SUCCESS':
             return state.filter(item => item.id !== action.id)
         case 'REMOVE_PHONEBOOK_FAILURE':
