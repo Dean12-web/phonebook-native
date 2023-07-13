@@ -6,6 +6,7 @@ import { loadStudent } from "../actions/users"
 export default function UserList() {
     const students = useSelector((state: any) => state.users)
     const dispatch: any = useDispatch()
+    // console.log(students)
     useEffect(() => {
         dispatch(loadStudent())
     }, [dispatch])
@@ -22,7 +23,7 @@ export default function UserList() {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        display:"flex",
         paddingTop: 22,
     }
 });  

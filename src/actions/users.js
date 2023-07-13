@@ -1,6 +1,6 @@
 import axios from "axios";
 const request = axios.create({
-    baseURL: 'http://localhost:3001/',
+    baseURL: 'http://192.168.1.18:3001/',
     timeout: 2000,
     headers: { 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjQ5YzUxODk2MWZiNmE1ZGE0MDZjMjUxIiwiaWF0IjoxNjg4OTg2NTkzfQ.WBI_hQByYSlfxoBnz5U2bK9DQgfcI-S5eS-FKMnYcY0` }
 });
