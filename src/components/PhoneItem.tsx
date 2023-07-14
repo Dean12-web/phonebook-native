@@ -11,11 +11,15 @@ export default function PhoneItem({ phonebook }: { phonebook: any }) {
     const [isEdit, setIsEdit] = useState(false)
     const [name, setName] = useState(phonebook.item.name)
     const [phone, setPhone] = useState(phonebook.item.phone)
+    const avatarSource = phonebook.item.avatar
+        ? { uri: `http://192.168.1.18:3001/images/${phonebook.item.avatar}?timestamp=${Date.now()}` }
+        : require('../../public/images/profile.png');
+
     return (
         <View style={styles.card}>
             <View style={styles.image}>
                 <TouchableOpacity>
-                    <Image style={styles.imageCover} source={require('../../public/images/profile.png')} />
+                    <Image style={styles.imageCover} source={avatarSource} />
                 </TouchableOpacity>
             </View>
             <View style={styles.info}>

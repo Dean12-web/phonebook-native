@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, TextInput, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { addUser } from "../actions/phonebooks";
-export default function PhoneForm() {
+export default function PhoneForm({navigation}:{navigation:any}) {
     const dispatch: any = useDispatch()
     const [user, setUser] = useState({ name: "", phone: "" })
     const submit = () => {

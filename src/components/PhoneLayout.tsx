@@ -1,23 +1,19 @@
 import { faArrowDownAZ, faArrowDownZA, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useState } from "react";
 import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData, updateParams } from "../actions/phonebooks";
 
+
 export default function PhoneLayout() {
     const dispatch: any = useDispatch()
-    const [searchTerm, setSearchTerm] = useState('')
     const { sortBy, sortMode } = useSelector((state: any) => state.pagination)
-
     const handleSearch = (value: any) => {
         dispatch(updateParams({ searchQuery: value }))
         dispatch(fetchData())
     }
-
     const handleSort = () => {
         const newSortMode = sortBy === 'name' && sortMode === 'desc' ? 'asc' : 'desc'
-
         dispatch(updateParams({ sortBy: 'name', sortMode: newSortMode }))
         dispatch(fetchData())
     }
