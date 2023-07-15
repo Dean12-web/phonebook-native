@@ -8,7 +8,7 @@ import ImagePicker from 'react-native-image-crop-picker'
 import axios from "axios";
 
 
-export default function PhoneItem({ phonebook, updateAvatar }: { phonebook: any, updateAvatar:any }) {
+export default function PhoneItem({ phonebook }: { phonebook: any }) {
     const dispatch: any = useDispatch()
     const [isEdit, setIsEdit] = useState(false)
     const [name, setName] = useState(phonebook.item.name)
@@ -30,19 +30,23 @@ export default function PhoneItem({ phonebook, updateAvatar }: { phonebook: any,
         })
     }
 
-    const uploadImage = (imagePath: string) =>{
+    const uploadImage = (imagePath: string) => {
         const formData = new FormData();
-        formData.append('avatar',{
-            uri:imagePath,
-            type:'image/*',
-            name:'avatar.jpg'
+        formData.append('avatar', {
+            uri: imagePath,
+            type: 'image/jpeg',
+            name: 'avatar.jpg'
         });
-        axios.put(`http://192.168.1.18:3001/api/phonebooks/${phonebook.id}/avatar`,formData)
-            .then(response =>{
-                console.log(response)
+        axios.put(`http://192.168.1.18:3001/api/phonebooks/${phonebook.item.id}/avatar`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(response => {
+                console.log('Upload Success',response.data)
             })
-            .catch(error =>{
-                console.log(error)
+            .catch(error => {
+                console.log('Error upload image', error)
             })
     }
     return (
