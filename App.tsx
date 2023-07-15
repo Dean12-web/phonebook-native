@@ -19,21 +19,20 @@ const store = createStore(
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import PhoneForm from './src/components/PhoneForm';
+import PhoneLayout from './src/components/PhoneLayout';
 
 const Stack = createNativeStackNavigator();
-{/* <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home"component={PhoneBox}/>
-          <Stack.Screen name="Add" component={PhoneForm} />
-        </Stack.Navigator>
-    </NavigationContainer> */}
+
 function App(): JSX.Element {
   return (
     <Provider store={store}>
-      <SafeAreaView style={styles.container}>
-        <PhoneBox />
-        {/* <UserBox/> */}
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home"component={PhoneBox} options={{headerShown: false}}/>
+          <Stack.Screen name="Add" component={PhoneForm} options={{headerShown: false}} />
+        </Stack.Navigator>
+    </NavigationContainer>
     </Provider>
   );
 }

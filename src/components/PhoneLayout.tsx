@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchData, updateParams } from "../actions/phonebooks";
 
 
-export default function PhoneLayout() {
+export default function PhoneLayout({navigation}:{navigation:any}) {
     const dispatch: any = useDispatch()
     const { sortBy, sortMode } = useSelector((state: any) => state.pagination)
     const handleSearch = (value: any) => {
@@ -16,6 +16,9 @@ export default function PhoneLayout() {
         const newSortMode = sortBy === 'name' && sortMode === 'desc' ? 'asc' : 'desc'
         dispatch(updateParams({ sortBy: 'name', sortMode: newSortMode }))
         dispatch(fetchData())
+    }
+    const handleAdd = () => {
+        navigation.navigate('Add')
     }
     return (
         <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -32,7 +35,7 @@ export default function PhoneLayout() {
                 <TextInput onChangeText={handleSearch} style={styles.input} placeholder="Search..." />
             </View>
             <View>
-                <TouchableOpacity style={styles.buttonBrown}>
+                <TouchableOpacity onPress={handleAdd} style={styles.buttonBrown}>
                     <FontAwesomeIcon icon={faUserPlus} />
                 </TouchableOpacity>
             </View>

@@ -8,6 +8,7 @@ export default function PhoneForm({navigation}:{navigation:any}) {
     const submit = () => {
         dispatch(addUser(user.name, user.phone))
         setUser({ name: "", phone: "" })
+        navigation.navigate('Home')
     }
     return (
         <View>
@@ -31,7 +32,7 @@ export default function PhoneForm({navigation}:{navigation:any}) {
                 <TouchableOpacity onPress={submit} style={styles.buttonGreen}>
                     <Text style={{ textAlign: "center", color: "white" }}>Save</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonYellow}>
+                <TouchableOpacity style={styles.buttonYellow} onPress={()=> navigation.navigate('Home')}>
                     <Text style={{ textAlign: "center", color: "white" }}>Cancel</Text>
                 </TouchableOpacity>
             </View>

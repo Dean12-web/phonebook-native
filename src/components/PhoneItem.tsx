@@ -4,21 +4,51 @@ import { useState } from "react";
 import { Text, Image, TouchableOpacity, View, StyleSheet, TextInput } from "react-native";
 import { useDispatch } from "react-redux";
 import { removeUser, updateUser } from "../actions/phonebooks";
+import ImagePicker from 'react-native-image-crop-picker'
+import axios from "axios";
 
 
-export default function PhoneItem({ phonebook }: { phonebook: any }) {
+export default function PhoneItem({ phonebook, updateAvatar }: { phonebook: any, updateAvatar:any }) {
     const dispatch: any = useDispatch()
     const [isEdit, setIsEdit] = useState(false)
     const [name, setName] = useState(phonebook.item.name)
     const [phone, setPhone] = useState(phonebook.item.phone)
-    const avatarSource = phonebook.item.avatar
-        ? { uri: `http://192.168.1.18:3001/images/${phonebook.item.avatar}?timestamp=${Date.now()}` }
-        : require('../../public/images/profile.png');
+    const [avatarSource, setAvatarSource] = useState(phonebook.item.avatar
+        ? { uri: `http://192.168.1.18:3001/images/${phonebook.item.avatar}` }
+        : require('../../public/images/profile.png'));
+    const selectImage = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log(image)
+            setAvatarSource({ uri: image.path })
+            uploadImage(image.path)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 
+    const uploadImage = (imagePath: string) =>{
+        const formData = new FormData();
+        formData.append('avatar',{
+            uri:imagePath,
+            type:'image/*',
+            name:'avatar.jpg'
+        });
+        axios.put(`http://192.168.1.18:3001/api/phonebooks/${phonebook.id}/avatar`,formData)
+            .then(response =>{
+                console.log(response)
+            })
+            .catch(error =>{
+                console.log(error)
+            })
+    }
     return (
         <View style={styles.card}>
             <View style={styles.image}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={selectImage} >
                     <Image style={styles.imageCover} source={avatarSource} />
                 </TouchableOpacity>
             </View>
